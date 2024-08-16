@@ -97,3 +97,50 @@ export async function handleGetLinks() {
     });
   });
 }
+
+
+export const redirectLink = async (slug: string) => {
+  try {
+        const docRef = doc(db, "links", slug);
+        const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data(), docSnap.data().linkId, docSnap.data().userId);
+
+    } else {
+      console.log("No such document!");
+    }
+    // const publicLinksCollection = collection(db, "links");
+    // const querySnapshot = await getDocs(query(publicLinksCollection, where("_name_", "==", slug)));
+
+  
+    // console.log("QuerySnapshot size:", querySnapshot.size);
+
+    // if (querySnapshot.empty) {
+    //   throw new Error("No link found for the given shortLink.");
+    // }
+
+    // const data = querySnapshot.docs[0]?.data();
+    // console.log("Document data:", data);
+
+      const { linkId, userId } = docSnap.data()  as { linkId: string, userId: string };
+      const userLinkDoc = doc(db, "users", userId, "links", linkId);
+
+      await updateDoc(userLinkDoc, { clicks: increment(1) });
+      console.log("Document updated.");
+
+
+      let link = docSnap.data()?.link;
+
+      try {
+        new URL(link);
+      } catch (e) {
+        link = 'https://' + link;
+      }
+  
+      window.location.href = link;
+  } catch (e) {
+      console.error("Error getting document: ", e);
+      throw e;
+  }
+}

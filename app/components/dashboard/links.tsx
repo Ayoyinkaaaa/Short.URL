@@ -4,6 +4,8 @@ import { useState, useEffect, ReactNode } from "react";
 import { GiNetworkBars } from "react-icons/gi";
 import {LinkDetails} from "@/app/lib/type"
 import { handleGetLinks } from "@/app/lib/action";
+import { FaEye } from "react-icons/fa";
+import Link from "next/link"
 
 
 // eslint-disable-next-line @next/next/no-async-client-component
@@ -26,19 +28,21 @@ export default function Links() {
         Links
       </h1>
       <div>
-      {link && link.map((Link, index) => (
+      {link && link.map((item, index) => (
         <div key={index} className="flex gap-28 p-4 my-5 shadow-lg items-center justify-between mt-4">
           <div className="flex-1 mb-2 my-2 flex flex-col gap-3">
-            <p className="text-2xl font-bold underline">{Link.name}</p>
+            <p className="text-2xl font-bold underline">{item.name}</p>
             <div className="w-56">
-              <p className="truncate text-current text-sm">{Link.link}</p>
+              <p className="truncate text-current text-sm">{item.link}</p>
             </div>
-            <p className="text-xs font-light">{Link.shortLink}</p>
-            <p className="text-xs font-thin">{Link.createdAt.toDate().toDateString()}</p>
+            <a href={`/${item.shortLink}`} target="blank">
+              <p className="text-xs font-medium">short-url-two-bay.vercel.app/{item.shortLink}</p>
+            </a>
+            <p className="text-xs font-light">{item.createdAt.toDate().toDateString()}</p>
           </div>
           <div>
-            <p className="text-sm font-bold">{Link.clicks}</p>
-            <GiNetworkBars className="text-green-800 text-lg font-extrabold" />
+            <p className="text-sm font-bold">{item.clicks}</p>
+            <FaEye className="text-green-800 text-lg font-extrabold" />
           </div>
         </div>
       ))}
@@ -46,37 +50,4 @@ export default function Links() {
     </div>
   );
 
-  // return (
-  //   <div>
-  //     <div>
-  //       <h1 className="text-center text-2xl font-bold my-4">links</h1>
-  //       <div className="flex justify-center ">
-  //         <div>
-  //           {links.map((Link, index) => {
-  //             // const longUrl = Link.longUrl
-  //             // const formatted = longUrl.length > 30 ? ${longUrl.substring(0, 30)}... : link
-  //             return (
-  //               <div key={index} className="flex gap-28 p-4 my-5  shadow-lg items-center  justify-between mt-4">
-  //                 <div className="flex-1 mb-2 my-2 flex flex-col gap-3" >
-  //                   <p className="text-2xl font-bold underline">{Link.name}</p>
-  //                   <div className="w-56">
-  //                   <p className="truncate text-current text-sm ">{Link.longUrl}</p>
-  //                   </div>
-  //                   <p className=" text-xs font-light">{Link.shortUrl}</p>
-  //                   <p className=" text-xs font-thin">{Link.createdAt}</p>
-  //                 </div>
-  //                 <div>
-  //                   <p className=" text-sm font-bold">{Link.clicks}</p>
-  //                   <GiNetworkBars className="text-green-800 text-lg font-extrabold"/>
-  //                 </div>
-  //               </div>
-  //             );
-  //           })}
-  //         </div>
-  //       </div>
-
-  //     </div>
-   
-  //   </div>
-  // );
 }
