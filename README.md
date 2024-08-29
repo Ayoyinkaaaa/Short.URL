@@ -1,4 +1,4 @@
-Short.url is a powerful, easy-to-use tool designed to simplify URL management by shortening lengthy URLs. In a world where brevity is essential, Scissor aims to disrupt the URL-shortening industry, offering features that cater to individuals, small businesses, and brands.
+Short.URL is a powerful, easy-to-use web app designed to simplify URL management by shortening lengthy URLs. In a world where brevity is essential, Short.URL aims to  offer features that cater to individuals, small businesses, and brands.
 
 Usage
 Paste a long URL into the input field and click "Shorten".
